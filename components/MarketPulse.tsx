@@ -39,7 +39,7 @@ export const MarketPulse: React.FC = () => {
     );
 
     return (
-        <section id="market-pulse" className="container mx-auto px-4 py-16">
+        <section id="market-pulse">
             <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                     <IconWrapper icon={<ChartBarIcon className="w-6 h-6 text-green-400" />} className="bg-green-900/40" />
@@ -52,7 +52,7 @@ export const MarketPulse: React.FC = () => {
                 </p>
             </div>
             {isLoading ? <SkeletonLoader /> : (
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
                     <div>
                         <h3 className="text-2xl font-bold text-white mb-6">Top Trending Skills</h3>
                         <div className="space-y-4">

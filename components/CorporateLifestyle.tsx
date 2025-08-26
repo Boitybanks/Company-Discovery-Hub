@@ -140,7 +140,7 @@ const RecentBattlesCard: React.FC<{battles: RecentBattle[]}> = ({ battles }) => 
 
 export const CorporateLifestyle: React.FC = () => {
   return (
-    <section id="lifestyle" className="container mx-auto px-4 py-16">
+    <section id="lifestyle">
         <div className="text-center mb-16">
              <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
                 Where Business Meets Lifestyle

@@ -68,7 +68,7 @@ export const CompanySpotlight: React.FC = () => {
     };
 
     const ExplorerView = () => (
-        <div className="container mx-auto px-4">
+        <div>
             <div className="text-center mb-12">
                 <h2 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
                     <span className="text-gray-500 font-light">@</span>Company
@@ -104,7 +104,7 @@ export const CompanySpotlight: React.FC = () => {
     );
 
     const SpotlightView = ({ data }: { data: CompanySpotlightData }) => (
-        <div className="container mx-auto px-4">
+        <div>
             <div className="mb-8">
                 <button onClick={() => setSelectedCompany(null)} className="flex items-center space-x-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors">
                     <ArrowLeftIcon className="w-5 h-5" />
@@ -153,7 +153,7 @@ export const CompanySpotlight: React.FC = () => {
     );
 
     return (
-        <section id="company-spotlight" className="bg-gray-900/50 py-16">
+        <section id="company-spotlight" className="bg-gray-900/50 p-8 md:p-12 rounded-3xl">
             {selectedCompany ? <SpotlightView data={selectedCompany} /> : <ExplorerView />}
         </section>
     );

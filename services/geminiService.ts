@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type } from "@google/genai";
-import type { UserProfile, Company, Opportunity, CareerGuruAnalysis, MarketPulseData, ConnectAISuggestion, SuggestedConnection } from '../types';
+import type { UserProfile, Company, Opportunity, CareerGuruAnalysis, MarketPulseData, ConnectAISuggestion, SuggestedConnection, OdysseyPlan } from '../types';
 
 if (!process.env.API_KEY) {
   // In a real app, you'd want to handle this more gracefully.
@@ -311,5 +311,67 @@ export const getSalaryEstimate = async (companyName: string, jobRole: string): P
     } catch (error) {
         console.error("Error getting salary estimate from Gemini:", error);
         return "Could not retrieve an estimate at this time.";
+    }
+};
+
+export const getOdysseyPlan = async (ambition: string): Promise<OdysseyPlan | null> => {
+    const prompt = `
+    You are a master career strategist AI named "The Navigator". Your task is to create a detailed, multi-year career roadmap for a user based on their ultimate ambition.
+
+    User's Ultimate Ambition: "${ambition}"
+
+    Generate a comprehensive plan divided into three distinct phases. Each phase should include a title, a brief description, and a list of 2-3 actionable items. Each item must have a type ('Skill', 'Role', 'Community', or 'Action'), a title, and a description.
+
+    - Phase 1: Foundation (Years 0-2) - Focus on fundamental skills and entry-level experiences.
+    - Phase 2: Growth (Years 2-5) - Focus on specialization, taking on more responsibility, and building a network.
+    - Phase 3: Leadership (Years 5+) - Focus on strategic impact, mentorship, and becoming an industry leader.
+
+    Ensure the advice is insightful, strategic, and inspiring. Provide a brief, encouraging summary for the entire plan.
+
+    Return the complete roadmap in the specified JSON format.
+    `;
+
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.OBJECT,
+                    properties: {
+                        ambition: { type: Type.STRING },
+                        summary: { type: Type.STRING },
+                        phases: {
+                            type: Type.ARRAY,
+                            items: {
+                                type: Type.OBJECT,
+                                properties: {
+                                    phase: { type: Type.STRING },
+                                    title: { type: Type.STRING },
+                                    description: { type: Type.STRING },
+                                    items: {
+                                        type: Type.ARRAY,
+                                        items: {
+                                            type: Type.OBJECT,
+                                            properties: {
+                                                type: { type: Type.STRING },
+                                                title: { type: Type.STRING },
+                                                description: { type: Type.STRING },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const jsonText = response.text.trim();
+        return JSON.parse(jsonText) as OdysseyPlan;
+    } catch (error) {
+        console.error("Error getting Odyssey Plan from Gemini:", error);
+        return null;
     }
 };

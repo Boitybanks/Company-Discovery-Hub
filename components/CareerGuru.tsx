@@ -49,7 +49,7 @@ export const CareerGuru: React.FC = () => {
     };
 
     return (
-        <section id="career-guru" className="container mx-auto px-4 py-16">
+        <section id="career-guru">
             <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
                     <IconWrapper icon={<BrainCircuitIcon className="w-6 h-6 text-indigo-400" />} className="bg-indigo-900/40" />

@@ -56,7 +56,7 @@ export const ConnectAI: React.FC = () => {
     }
 
     return (
-        <section id="connect-ai" className="container mx-auto px-4 py-16">
+        <section id="connect-ai">
             <div className="text-center mb-12">
                  <div className="flex items-center justify-center gap-3 mb-4">
                     <IconWrapper icon={<SparklesIcon className="w-6 h-6 text-yellow-400" />} className="bg-yellow-900/40" />

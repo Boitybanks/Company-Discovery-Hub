@@ -197,3 +197,55 @@ export interface NewsItem {
     headline: string;
     urgency: 'high' | 'normal';
 }
+
+// NEW TYPES FOR FORUM HUB
+export type ForumChannel = 'Career Crossroads' | 'Interview Intel' | 'Side Hustle Showcase' | 'Industry Deep Dives';
+
+export interface ForumReply {
+    id: number;
+    author: {
+        name: string;
+        avatarUrl?: string;
+        anonymous: boolean;
+    };
+    content: string;
+    timestamp: string;
+    upvotes: number;
+}
+
+export interface ForumPost {
+    id: number;
+    channel: ForumChannel;
+    title: string;
+    content: string;
+    author: {
+        name: string;
+        avatarUrl?: string;
+        anonymous: boolean;
+    };
+    timestamp: string;
+    upvotes: number;
+    replies: ForumReply[];
+    isTrending?: boolean;
+}
+
+// NEW TYPES FOR ODYSSEY DASHBOARD
+export type PhaseItemType = 'Skill' | 'Role' | 'Community' | 'Action';
+export interface PhaseItem {
+    type: PhaseItemType;
+    title: string;
+    description: string;
+}
+
+export interface CareerPhase {
+    phase: string; // e.g., "Phase 1: Foundation (Years 0-2)"
+    title: string;
+    description: string;
+    items: PhaseItem[];
+}
+
+export interface OdysseyPlan {
+    ambition: string;
+    summary: string;
+    phases: CareerPhase[];
+}
