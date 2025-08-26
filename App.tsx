@@ -1,6 +1,8 @@
 import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
+import { NewsTicker } from './components/NewsTicker';
+import { CompanySpotlight } from './components/CompanySpotlight';
 import { CorporateLifestyle } from './components/CorporateLifestyle';
 import { MarketPulse } from './components/MarketPulse';
 import { CareerGuru } from './components/CareerGuru';
@@ -14,6 +16,8 @@ const App: React.FC = () => {
         <Header />
         <main>
           <Hero />
+          <NewsTicker />
+          <CompanySpotlight />
           <CorporateLifestyle />
           <MarketPulse />
           <CareerGuru />

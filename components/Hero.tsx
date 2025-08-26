@@ -20,13 +20,13 @@ export const Hero: React.FC = () => {
           Where Ambition Meets Opportunity
         </h1>
         <p className="mt-4 max-w-3xl mx-auto text-lg text-gray-300">
-          Discover a new era of professional networking. Connect with visionary companies and build a career that truly inspires you.
+          Your career is a journey. Find where you belong. Discover visionary companies and build a future that truly inspires you.
         </p>
         <div className="mt-12">
            <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold px-10 py-4 rounded-xl text-lg hover:opacity-90 transition-opacity shadow-lg">
               Get Started
            </button>
-           <p className="mt-3 text-sm text-gray-400">Join the future of professional networking</p>
+           <p className="mt-3 text-sm text-gray-400">Join the future of professional discovery</p>
         </div>
       </div>
     </div>

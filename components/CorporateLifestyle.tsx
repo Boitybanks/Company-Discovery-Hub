@@ -9,7 +9,7 @@ const mockCoffeeSpots: CoffeeSpot[] = [
 ];
 
 const mockSportsGroups: SportsGroup[] = [
-    { id: 1, name: 'Tech vs Finance Soccer League', details: 'Weekly matches • Saturdays 2PM', description: 'Competitive 7v7 league where tech companies battle it out with finance firms. Great networking on the field!', tags: ['Soccer', 'Tech', 'Finance', 'League'], status: { active: true } },
+    { id: 1, name: 'Healthcare Heroes vs. Finance Flyers', details: 'Weekly matches • Saturdays 2PM', description: 'A friendly but competitive league bringing together professionals from the health and finance sectors.', tags: ['Soccer', 'Health', 'Finance', 'League'], status: { active: true } },
     { id: 2, name: 'Cape Town Padel Professionals', details: 'Mixed industry • Thursdays 6PM', description: 'Padel courts where lawyers, doctors, consultants and entrepreneurs compete. Post-game networking drinks!', tags: ['Padel', 'Legal', 'Medical', 'Social'], status: { premium: true } },
 ];
 
@@ -24,7 +24,7 @@ const mockCompetition: Competition = {
 };
 
 const mockRecentBattles: RecentBattle[] = [
-    { id: 1, matchup: 'Standard Bank vs Absa', sport: 'Tennis', winner: 'Standard Bank Won', score: '4-2', time: 'Last Friday' },
+    { id: 1, matchup: 'Anglo American vs Sasol', sport: 'Rugby', winner: 'Anglo American Won', score: '21-18', time: 'Last Friday' },
     { id: 2, matchup: 'Shoprite vs Woolworths', sport: 'Soccer', winner: 'Woolworths Won', score: '3-1', time: 'Last Wednesday' },
     { id: 3, matchup: 'MTN vs Vodacom', sport: 'Padel', winner: 'MTN Won', score: '5-3', time: 'Last Monday' },
 ];

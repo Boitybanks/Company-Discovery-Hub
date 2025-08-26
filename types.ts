@@ -174,3 +174,26 @@ export interface ConnectAISuggestion {
     connection: SuggestedConnection;
     icebreakers: string[];
 }
+
+// NEW TYPES FOR COMPANY SPOTLIGHT AND NEWS
+export interface CompanySpotlightData {
+    id: string;
+    companyName: string;
+    logoUrl: string;
+    logoBackgroundColor?: string;
+    tagline: string;
+    cultureDescription: string;
+    imageGallery: string[];
+    coreValues: {
+        icon: 'UsersGroupIcon' | 'LightBulbIcon' | 'ScaleIcon' | 'AcademicCapIcon';
+        title: string;
+        description: string;
+    }[];
+}
+
+export interface NewsItem {
+    id: number;
+    companyName: string;
+    headline: string;
+    urgency: 'high' | 'normal';
+}

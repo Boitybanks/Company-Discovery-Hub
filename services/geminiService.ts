@@ -103,6 +103,7 @@ export const getCareerGuruAnalysis = async (reportData: string, aspirations: str
     const prompt = `
     You are an expert Career Guru AI for high school students. You are insightful, encouraging, and provide data-driven advice.
     Analyze the following student's academic report and their career aspirations.
+    It is crucial that you consider a wide range of industries beyond just technology, including healthcare, mining, finance, arts, and skilled trades.
 
     Academic Report:
     "${reportData}"
@@ -180,7 +181,8 @@ export const getCareerGuruAnalysis = async (reportData: string, aspirations: str
 
 export const getMarketPulseAnalysis = async (): Promise<MarketPulseData | null> => {
     const prompt = `
-    Act as a senior market analyst AI. Based on a very recent (simulated) dataset of job postings and tech news, identify the top 4 trending skills and top 3 hiring hotspot industries.
+    Act as a senior market analyst AI. Based on a very recent (simulated) dataset of job postings and news, identify the top 4 trending skills and top 3 hiring hotspot industries.
+    Ensure your analysis covers a diverse range of sectors, not just tech. Include industries like healthcare, manufacturing, retail, and finance.
 
     For skills, provide a "demandGrowth" percentage (month-over-month).
     For industries, provide a brief "sentiment" analysis explaining why it's a hotspot.
@@ -283,5 +285,31 @@ export const getNetworkingSuggestions = async (goal: string): Promise<ConnectAIS
     } catch (error) {
         console.error("Error getting networking suggestions:", error);
         return null;
+    }
+};
+
+export const getSalaryEstimate = async (companyName: string, jobRole: string): Promise<string | null> => {
+    const prompt = `
+    Act as an expert Compensation and Benefits Analyst AI.
+    You have access to a vast (simulated) dataset of salary information across multiple industries and countries, with a focus on South Africa.
+    Provide a realistic, estimated annual salary range for the following role at the specified company.
+
+    Company: "${companyName}"
+    Job Role: "${jobRole}"
+
+    Consider factors like the company's size, industry (e.g., finance, tech, mining), and prestige.
+    Return only the estimated salary range as a string, for example: "R450,000 - R550,000 per year".
+    Do not add any other explanatory text.
+    `;
+
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+        });
+        return response.text.trim();
+    } catch (error) {
+        console.error("Error getting salary estimate from Gemini:", error);
+        return "Could not retrieve an estimate at this time.";
     }
 };
