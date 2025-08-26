@@ -2,7 +2,9 @@ import React from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { CorporateLifestyle } from './components/CorporateLifestyle';
+import { MarketPulse } from './components/MarketPulse';
 import { CareerGuru } from './components/CareerGuru';
+import { ConnectAI } from './components/ConnectAI';
 import { Footer } from './components/Footer';
 
 const App: React.FC = () => {
@@ -13,7 +15,9 @@ const App: React.FC = () => {
         <main>
           <Hero />
           <CorporateLifestyle />
+          <MarketPulse />
           <CareerGuru />
+          <ConnectAI />
         </main>
         <Footer />
       </div>

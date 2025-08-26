@@ -1,6 +1,5 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
-import type { UserProfile, Company, Opportunity, CareerGuruAnalysis } from '../types';
+import type { UserProfile, Company, Opportunity, CareerGuruAnalysis, MarketPulseData, ConnectAISuggestion, SuggestedConnection } from '../types';
 
 if (!process.env.API_KEY) {
   // In a real app, you'd want to handle this more gracefully.
@@ -9,6 +8,14 @@ if (!process.env.API_KEY) {
 }
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY! });
+
+// MOCK DATA FOR NEW SERVICES
+const mockProfessionals: SuggestedConnection[] = [
+    { id: 1, name: 'Sarah Chen', title: 'Lead Product Manager', company: 'Innovate Inc.', imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop' },
+    { id: 2, name: 'David Lee', title: 'Founder & CEO', company: 'QuantumLeap AI', imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop' },
+    { id: 3, name: 'Maria Rodriguez', title: 'Senior Software Engineer', company: 'DataStream Solutions', imageUrl: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1972&auto=format&fit=crop' },
+    { id: 4, name: 'Kenji Tanaka', title: 'Head of UX Design', company: 'Momentum', imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop' },
+];
 
 export const getCareerAdvice = async (profile: UserProfile, question: string): Promise<string> => {
   try {
@@ -167,6 +174,114 @@ export const getCareerGuruAnalysis = async (reportData: string, aspirations: str
         return JSON.parse(jsonText) as CareerGuruAnalysis;
     } catch (error) {
         console.error("Error getting career guru analysis from Gemini:", error);
+        return null;
+    }
+};
+
+export const getMarketPulseAnalysis = async (): Promise<MarketPulseData | null> => {
+    const prompt = `
+    Act as a senior market analyst AI. Based on a very recent (simulated) dataset of job postings and tech news, identify the top 4 trending skills and top 3 hiring hotspot industries.
+
+    For skills, provide a "demandGrowth" percentage (month-over-month).
+    For industries, provide a brief "sentiment" analysis explaining why it's a hotspot.
+
+    Return your analysis in the specified JSON format.
+    `;
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.OBJECT,
+                    properties: {
+                        trendingSkills: {
+                            type: Type.ARRAY,
+                            items: {
+                                type: Type.OBJECT,
+                                properties: {
+                                    skill: { type: Type.STRING },
+                                    demandGrowth: { type: Type.NUMBER },
+                                },
+                            },
+                        },
+                        hiringHotspots: {
+                            type: Type.ARRAY,
+                            items: {
+                                type: Type.OBJECT,
+                                properties: {
+                                    industry: { type: Type.STRING },
+                                    sentiment: { type: Type.STRING },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const jsonText = response.text.trim();
+        return JSON.parse(jsonText) as MarketPulseData;
+    } catch (error) {
+        console.error("Error getting market pulse analysis:", error);
+        return null;
+    }
+};
+
+
+export const getNetworkingSuggestions = async (goal: string): Promise<ConnectAISuggestion[] | null> => {
+    const prompt = `
+    You are an AI Networking Assistant. Your goal is to help users make meaningful professional connections.
+    A user has specified their networking goal.
+    Based on their goal, analyze the following list of professionals and identify the 2 most relevant people to connect with.
+
+    User's Networking Goal: "${goal}"
+
+    List of Professionals:
+    ${mockProfessionals.map(p => `- ID ${p.id}: ${p.name}, ${p.title} at ${p.company}.`).join('\n')}
+
+    For each of the 2 recommended connections, generate 3 distinct, high-quality, and personalized "icebreaker" messages. The messages should be professional, concise, and reference either the user's goal or the professional's role/company. Avoid generic templates.
+
+    Return your suggestions in the specified JSON format.
+    `;
+    try {
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+                responseSchema: {
+                    type: Type.ARRAY,
+                    items: {
+                        type: Type.OBJECT,
+                        properties: {
+                            connectionId: { type: Type.NUMBER },
+                            icebreakers: {
+                                type: Type.ARRAY,
+                                items: { type: Type.STRING },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const jsonText = response.text.trim();
+        const results = JSON.parse(jsonText) as { connectionId: number; icebreakers: string[] }[];
+        
+        // Map the results back to the full SuggestedConnection objects
+        const suggestions: ConnectAISuggestion[] = results.map(result => {
+            const connection = mockProfessionals.find(p => p.id === result.connectionId);
+            if (!connection) return null;
+            return {
+                connection,
+                icebreakers: result.icebreakers,
+            };
+        }).filter((s): s is ConnectAISuggestion => s !== null);
+
+        return suggestions;
+
+    } catch (error) {
+        console.error("Error getting networking suggestions:", error);
         return null;
     }
 };

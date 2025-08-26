@@ -143,3 +143,34 @@ export interface CareerGuruAnalysis {
     universitySuggestions: UniversitySuggestion[];
     potentialEmployers: string[];
 }
+
+// NEW TYPES FOR MARKET PULSE
+export interface TrendingSkill {
+    skill: string;
+    demandGrowth: number;
+}
+
+export interface HiringHotspot {
+    industry: string;
+    sentiment: string;
+}
+
+export interface MarketPulseData {
+    trendingSkills: TrendingSkill[];
+    hiringHotspots: HiringHotspot[];
+}
+
+
+// NEW TYPES FOR CONNECT AI
+export interface SuggestedConnection {
+    id: number;
+    name: string;
+    title: string;
+    company: string;
+    imageUrl: string;
+}
+
+export interface ConnectAISuggestion {
+    connection: SuggestedConnection;
+    icebreakers: string[];
+}
