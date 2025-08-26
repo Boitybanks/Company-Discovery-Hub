@@ -120,3 +120,26 @@ export interface RecentBattle {
     score: string;
     time: string;
 }
+
+// NEW TYPES FOR CAREER GURU
+export interface CareerRecommendation {
+    career: string;
+    description: string;
+    aiImpact: {
+        riskPercentage: number;
+        outlook: string;
+    };
+}
+
+export interface UniversitySuggestion {
+    name: string;
+    specialty: string;
+}
+
+export interface CareerGuruAnalysis {
+    overallAssessment: string;
+    careerRecommendations: CareerRecommendation[];
+    academicPlan: string[];
+    universitySuggestions: UniversitySuggestion[];
+    potentialEmployers: string[];
+}
