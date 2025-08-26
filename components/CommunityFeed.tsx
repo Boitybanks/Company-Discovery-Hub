@@ -1,4 +1,3 @@
-
 import React from 'react';
 import type { Post } from '../types';
 import { HeartIcon, ChatBubbleOvalLeftEllipsisIcon, ShareIcon } from './Icons';
@@ -19,16 +18,16 @@ const PostCard: React.FC<{ post: Post }> = ({ post }) => (
             </div>
         </div>
         <p className="text-slate-200 mb-4">{post.content}</p>
-        <div className="flex justify-between items-center text-slate-400 pt-3 border-t border-white/10">
-            <button className="flex items-center space-x-2 hover:text-red-500 transition-colors">
+        <div className="flex justify-between items-center pt-3 border-t border-white/10">
+            <button className="flex items-center space-x-2 text-slate-400 rounded-full px-3 py-1.5 hover:bg-red-500/10 hover:text-red-500 transition-all duration-200">
                 <HeartIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">{post.likes}</span>
             </button>
-            <button className="flex items-center space-x-2 hover:text-sky-400 transition-colors">
+            <button className="flex items-center space-x-2 text-slate-400 rounded-full px-3 py-1.5 hover:bg-sky-500/10 hover:text-sky-400 transition-all duration-200">
                 <ChatBubbleOvalLeftEllipsisIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">{post.comments}</span>
             </button>
-            <button className="flex items-center space-x-2 hover:text-green-400 transition-colors">
+            <button className="flex items-center space-x-2 text-slate-400 rounded-full px-3 py-1.5 hover:bg-green-500/10 hover:text-green-400 transition-all duration-200">
                 <ShareIcon className="w-5 h-5" />
                 <span className="text-sm font-medium">Share</span>
             </button>

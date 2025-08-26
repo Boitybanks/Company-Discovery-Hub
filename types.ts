@@ -1,4 +1,11 @@
 
+export interface Story {
+  id: number;
+  type: 'image' | 'video';
+  url: string;
+  duration?: number; // duration in seconds
+}
+
 export interface Company {
   id: number;
   name: string;
@@ -9,6 +16,10 @@ export interface Company {
   description: string;
   culture: string[];
   openRoles: number;
+  cultureAnalytics: {
+    [key: string]: number; // e.g., { 'Work-Life Balance': 4.5, 'Innovation': 5, ... }
+  };
+  stories: Story[];
 }
 
 export interface Opportunity {
@@ -45,4 +56,16 @@ export interface UserProfile {
   bio: string;
   skills: string[];
   careerGoals: string[];
+}
+
+export interface LiveEvent {
+    id: number;
+    companyName: string;
+    companyLogo: string;
+    title: string;
+    hostName: string;
+    hostTitle: string;
+    dateTime: string;
+    attendees: number;
+    type: 'AMA' | 'Coffee Chat' | 'Workshop';
 }
