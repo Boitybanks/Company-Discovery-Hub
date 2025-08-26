@@ -1,4 +1,3 @@
-
 export interface Story {
   id: number;
   type: 'image' | 'video';
@@ -42,15 +41,6 @@ export interface Post {
   comments: number;
 }
 
-export interface LifestyleItem {
-  id: number;
-  category: 'Coffee Spot' | 'Sports Group' | 'Competition';
-  name: string;
-  image: string;
-  description: string;
-  details: string;
-}
-
 export interface UserProfile {
   name: string;
   bio: string;
@@ -58,14 +48,75 @@ export interface UserProfile {
   careerGoals: string[];
 }
 
-export interface LiveEvent {
+// NEW TYPES FOR LIFESTYLE SECTION
+export interface CoffeeSpot {
     id: number;
-    companyName: string;
-    companyLogo: string;
+    name: string;
+    location: string;
+    description: string;
+    tags: {
+        hot?: boolean;
+        trending?: boolean;
+        vip?: boolean;
+    };
+    features: string[];
+    checkedIn: number;
+    rating?: number;
+    cta: {
+        text: string;
+        link: string;
+        type: 'primary' | 'secondary';
+    };
+    event?: {
+        name: string;
+        time: string;
+    }
+}
+
+export interface SportsGroup {
+    id: number;
+    name: string;
+    details: string;
+    description: string;
+    tags: string[];
+    status: {
+        active?: boolean;
+        premium?: boolean;
+    }
+}
+
+export interface Competition {
+    id: number;
+    tag: string;
     title: string;
-    hostName: string;
-    hostTitle: string;
-    dateTime: string;
-    attendees: number;
-    type: 'AMA' | 'Coffee Chat' | 'Workshop';
+    subtitle: string;
+    teamA: {
+        name: string;
+        tagline: string;
+        logoInitial: string;
+        registered: number;
+        bgColor: string;
+    };
+    teamB: {
+        name:string;
+        tagline: string;
+        logoInitial: string;
+        registered: number;
+        bgColor: string;
+    };
+    matchDetails: {
+        date: string;
+        location: string;
+        details: string;
+        prize: string;
+    };
+}
+
+export interface RecentBattle {
+    id: number;
+    matchup: string;
+    sport: string;
+    winner: string;
+    score: string;
+    time: string;
 }
